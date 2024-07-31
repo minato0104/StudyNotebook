@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% block title %}学習履歴{% endblock %}
+{% block content %}
+
+<h2>学習履歴</h2>
+
+{% if history %}
+    <ul>
+    {% for record in history %}
+        <li>
+            {% if record.goal %}
+                目標: {{ record.goal.goal }} - 
+            {% endif %}
+            {% if record.group_name %}
+                グループ: {{ record.group_name }} - 
+            {% endif %}
+            完了日時: {{ record.completed_on }}
+            <p>詳細: {{ record.details }}</p>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>学習履歴がありません。</p>
+{% endif %}
+
+{% endblock %}

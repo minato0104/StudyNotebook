@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}学習ノートブック{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .menu {
+            background-color: #f8f9fa;
+            padding: 10px;
+        }
+        .menu h1 {
+            margin-top: 0;
+        }
+        .menu-items {
+            list-style-type: none;
+            padding: 0;
+        }
+        .menu-items li {
+            display: inline;
+            margin-right: 15px;
+        }
+        .content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <div class="menu">
+            <h1>メニュー</h1>
+            <ul class="menu-items">
+                <li><a href="{% url 'dashboard' %}">ダッシュボード</a></li>
+                <li><a href="{% url 'study_group' %}">学習グループ</a></li>
+                <li><a href="{% url 'study_goals' %}">学習目標</a></li>
+                <li><a href="{% url 'study_history' %}">学習履歴</a></li>
+            </ul>
+        </div>
+    {% endif %}
+
+    <div class="content">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

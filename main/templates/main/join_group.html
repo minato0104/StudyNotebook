@@ -1,0 +1,19 @@
+<!-- join_group.html -->
+{% extends 'main/base.html' %}
+
+{% block title %}学習グループに参加する{% endblock %}
+
+{% block content %}
+<h2>学習グループに参加する</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="room_number">グループ号:</label>
+    <input type="text" name="room_number" required>
+    <button type="submit">グループに参加する</button>
+</form>
+
+{% if error %}
+<p style="color: red;">{{ error }}</p>
+{% endif %}
+{% endblock %}

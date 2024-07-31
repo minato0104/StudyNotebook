@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% block title %}グループ作成{% endblock %}
+{% block content %}
+
+<h2>学習グループを作る</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="name">グループ名:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+        <label for="description">説明:</label>
+        <textarea id="description" name="description" required></textarea>
+    </div>
+    <div>
+        <label for="study_topic">学習テーマ:</label>
+        <input type="text" id="study_topic" name="study_topic" required>
+    </div>
+    <div>
+        <label for="study_duration">学習時間 (分):</label>
+        <input type="number" id="study_duration" name="study_duration" required>
+    </div>
+    <button type="submit">作成</button>
+</form>
+
+{% endblock %}

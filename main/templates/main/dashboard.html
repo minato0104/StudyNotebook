@@ -1,0 +1,9 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}ダッシュボード{% endblock %}
+
+{% block content %}
+    <h2>ようこそ、{{ user.username }}さん</h2>
+    <p>学習ノートブックへようこそ。メニューから各機能にアクセスできます。</p>
+{% endblock %}

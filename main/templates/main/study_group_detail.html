@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+{% block title %}{{ group.name }}{% endblock %}
+{% block content %}
+
+<h2>{{ group.name }}</h2>
+
+<p>説明: {{ group.description }}</p>
+<p>学習テーマ: {{ group.study_topic }}</p>
+<p>部屋番号: {{ group.room_number }}</p>
+
+{% if is_completed %}
+  <h3>学習終了、休憩してください！</h3>
+{% else %}
+  <h3>残り時間: <span id="countdown" data-remaining-time="{{ remaining_time }}"></span></h3>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var countdownElement = document.getElementById('countdown');
+      var remainingTime = parseInt(countdownElement.getAttribute('data-remaining-time')) || 0;
+      
+      function updateCountdown() {
+        var minutes = Math.floor(remainingTime / 60);
+        var seconds = remainingTime % 60;
+        countdownElement.textContent = 
+          minutes.toString().padStart(2, '0') + ':' + 
+          seconds.toString().padStart(2, '0');
+        
+        if (remainingTime > 0) {
+          remainingTime--;
+          setTimeout(updateCountdown, 1000);
+        } else {
+          countdownElement.textContent = "時間切れ";
+        }
+      }
+
+      updateCountdown();
+    });
+  </script>
+{% endif %}
+
+{% endblock %}

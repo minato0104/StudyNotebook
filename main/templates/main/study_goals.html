@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+{% block title %}学習目標{% endblock %}
+{% block content %}
+
+<h2>学習目標</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="create">
+    <label for="goal">目標:</label>
+    <input type="text" id="goal" name="goal" required>
+    <label for="begin_date">開始:</label>
+    <input type="date" id="begin_date" name="begin_date" required>
+    <label for="target_date">達成予定日:</label>
+    <input type="date" id="target_date" name="target_date" required>
+    <button type="submit">目標を設定</button>
+</form>
+
+<h3>既存の目標</h3>
+
+{% for goal in goals %}
+    <div>
+        <p>{{ goal.goal }} -- {{ goal.begin_date }} ~ {{ goal.target_date }}</p>
+        <form method="post" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="complete">
+            <input type="hidden" name="goal_id" value="{{ goal.id }}">
+            <button type="submit" {% if goal.completed %}disabled{% endif %}>
+                {% if goal.completed %}完成{% else %}未完成{% endif %}
+            </button>
+        </form>
+    </div>
+{% empty %}
+    <p>目標がありません。</p>
+{% endfor %}
+
+{% endblock %}

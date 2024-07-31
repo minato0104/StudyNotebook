@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}ログイン{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+{% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h2>ログイン</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="id_username">ユーザー名:</label>
+            <input type="text" name="username" id="id_username" required>
+        </div>
+        <div>
+            <label for="id_password">パスワード:</label>
+            <input type="password" name="password" id="id_password" required>
+        </div>
+        <button type="submit">ログイン</button>
+    </form>
+    <p>アカウントを持っていない？ <a href="{% url 'signup' %}">新規登録</a></p>
+{% endblock %}

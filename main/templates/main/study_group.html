@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+{% block title %}学習グループ{% endblock %}
+{% block content %}
+
+<h2>学習グループ</h2>
+
+<div>
+    <p><a href="{% url 'create_group' %}">学習グループを作る</a></p>
+    <p><a href="{% url 'join_group' %}">学習グループに参加する</a></p>
+</div>
+
+{% if groups %}
+    <h3>あなたの学習グループ：</h3>
+    <ul>
+    {% for group in groups %}
+        <li>
+            <a href="{% url 'study_group_detail' group_id=group.id %}">
+                {{ group.name }} - {{ group.description }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>学習グループがありません。</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}新規登録{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+{% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h2>新規登録</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">登録</button>
+    </form>
+    <p>すでにアカウントを持っている？ <a href="{% url 'login' %}">ログイン</a></p>
+{% endblock %}
